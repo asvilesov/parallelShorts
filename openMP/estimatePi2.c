@@ -28,8 +28,6 @@ int main(void){
 	
 	if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
 	
-	
-	////////**********Use OpenMP to parallize this loop***************//
 	#pragma omp parallel shared(chunk) private(i, tid)
 	{
 		tid = omp_get_thread_num();
@@ -54,7 +52,6 @@ int main(void){
 			}
 		}
 	}	
-	///////******************************////
 	
 	if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		
 	time = (stop.tv_sec - start.tv_sec)+ (double)(stop.tv_nsec - start.tv_nsec)/1e9;

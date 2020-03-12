@@ -42,16 +42,11 @@ void *sub_matrix_multiply(void *thread_args){
 
 int main(int argc, char* argv[]){
 
-		// printf("hi\n");
-	 //    printf("Num arguments %i\n", argc);
-	 //    printf("argument is %i\n", atoi(argv[1]));
-		//struct thread_dat thread_data_list[4094*4094];
 
 		int i, j, k;
 		struct timespec start, stop; 
 		double time;
 		long int n = 4096; // matrix size is n*n
-		//int b = 128; //block size
 
 		pthread_t *threads;
 
@@ -80,26 +75,12 @@ int main(int argc, char* argv[]){
 		}
 				
 		if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
-		
-		// Your code goes here //
-		// Matrix C = Matrix A * Matrix B //	
-		//*******************************//
-		
+
 		for (i=0; i<n/b; i++){
 			for(j=0; j< n/b; j++){
 				mat_multiply(i*b, j*b, b, n, A, B, C);
 			}
 		}
-
-		// for(i=0; i<n; i ++){
-		// 	for(j=0; j<n; j++){
-		// 		for(k = 0; k<n; k++){
-		// 			C[i][j] += A[i][k]*B[k][j];
-		// 		}
-		// 	}
-		// }
-		//*******************************//
-
 		
 		if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		
 		time = (stop.tv_sec - start.tv_sec)+ (double)(stop.tv_nsec - start.tv_nsec)/1e9;

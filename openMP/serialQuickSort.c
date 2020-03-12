@@ -6,11 +6,9 @@
 #define		size	  16*1024*1024
  
 void quickSort(int *array, int start, int end){
-   // you quick sort function goes here 
 	int seed = 5;
    if(start < end){ //recursive stop condition 
 		int rand_pivot = rand_r(&seed)%(end-start+1) + start;
-		//printf("piv %i \n", rand_pivot);
 		int temp = array[rand_pivot];
 		array[rand_pivot] = array[end];
 		array[end] = temp;
@@ -30,11 +28,6 @@ void quickSort(int *array, int start, int end){
 		array[end] = array[j];
 		array[j] = pivot;
 
-		// for(k=0;k<16;k++) printf("%d ", array[k]);
-		// printf("\n");
-
-		// printf("%i\n", j);
-
 		quickSort(array, start, j-1);
 		quickSort(array, j+1, end);
 	}
@@ -51,13 +44,12 @@ int main(void){
 	}
 	
 	if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
-	////////**********Your code goes here***************//
+
+
 	for(i=0;i<16;i++) printf("%d ", m[i]);
 	printf("\n");
 	
 	quickSort(m, 0, size-1);
-			
-	///////******************************////
 	
 	if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		
 	exe_time = (stop.tv_sec - start.tv_sec)+ (double)(stop.tv_nsec - start.tv_nsec)/1e9;

@@ -23,14 +23,11 @@ int main(void){
 	
 	if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
 	
-	
-	////////**********Use OpenMP to parallize this loop***************//
 	for(i=0; i<num_of_points; i++){
 		if((data_point[i].x-0.5)*(data_point[i].x-0.5)+(data_point[i].y-0.5)*(data_point[i].y-0.5)<=0.25){
 			num_of_points_in_circle++;
 		}	
 	}	
-	///////******************************////
 	
 	if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		
 	time = (stop.tv_sec - start.tv_sec)+ (double)(stop.tv_nsec - start.tv_nsec)/1e9;

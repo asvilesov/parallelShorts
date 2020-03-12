@@ -51,7 +51,6 @@ int main(int argc, char** argv){
             sum+=arr[i];
         }
     }
-    //printf("My sum is %i\n", sum);
     MPI_Reduce(&sum, &total_sum, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
 
     if(rank == 0){

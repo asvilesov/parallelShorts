@@ -4,16 +4,10 @@
 
 int main(int argc, char* argv[]){
 
-		// printf("hi\n");
-	    // printf("Num arguments %i\n", argc);
-	    // printf("argument is %i\n", atoi(argv[1]));
-
 		int i, j, k;
 		struct timespec start, stop; 
 		double time;
 		long int n = 4096; // matrix size is n*n
-		//int b = 128; //block size
-		//int b = atoi(argv[1]);
 
 		
 		double **A = (double**) malloc (sizeof(double*)*n);
@@ -35,10 +29,6 @@ int main(int argc, char* argv[]){
 				
 		if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
 		
-		// Your code goes here //
-		// Matrix C = Matrix A * Matrix B //	
-		//*******************************//
-
 		for(i=0; i<n; i ++){
 			for(j=0; j<n; j++){
 				for(k = 0; k<n; k++){
@@ -46,7 +36,6 @@ int main(int argc, char* argv[]){
 				}
 			}
 		}
-		//*******************************//
 
 		
 		if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		

@@ -30,16 +30,11 @@ int main(int argc, char** argv){
 	if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
 	
 
-	//  Your code goes here
 	int num_clusters = 4;
-
-	// printf("%d\n", a[640000-1]);
-
 	double kmeans[] = {0.0,85.0,170.0,255.0};
 	double kmeans_sum[num_clusters];
 	double kmeans_count[num_clusters];
 	int iterations = 30;
-
 	int max_dist, cluster_assignement;
 
 	for(int i = 0; i < iterations; i++){ //number of iterations of kmeans
@@ -66,18 +61,10 @@ int main(int argc, char** argv){
 			kmeans_count[k] = 0;
 		}
 	}
-
-	// for(int k = 0; k < num_clusters; k++){
-	// 	printf("%f\n", kmeans[k]);
-	// }
-
-
-	//
 	
 	// measure the end time here
 	if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		
-	
-	// print out the execution time here
+
 	time = (stop.tv_sec - start.tv_sec)+ (double)(stop.tv_nsec - start.tv_nsec)/1e9;
 	printf("Execution time = %f sec\n",time);
 	

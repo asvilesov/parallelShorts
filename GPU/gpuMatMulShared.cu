@@ -39,7 +39,6 @@ int main(){
 	float time_execute = 0;
 	cudaEventCreate(&start);
 	cudaEventCreate(&stop);
-
 	
 	int *A = (int*) malloc (sizeof(int)*n*n);
 	int *B = (int*) malloc (sizeof(int)*n*n);

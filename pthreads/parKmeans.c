@@ -52,8 +52,6 @@ int main(int argc, char** argv){
 	double time;
 	if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
 	
-
-	//  Your code goes here
 	//init all kmeans and pthreads vars
 	int num_clusters = 6;
 	double kmeans[] = {0.0,65.0,100.0,125.0,190.0,255.0};
@@ -62,7 +60,6 @@ int main(int argc, char** argv){
 	int max_dist, cluster_assignement;
 
 	int p = atoi(argv[1]);
-	//pthread_mutex_t mutex_array[p];
 	pthread_t *threads;
 	threads = malloc(sizeof(pthread_t)*p);
 	struct thread_dat* thread_data_list = malloc(p * sizeof(struct thread_dat));
@@ -77,12 +74,6 @@ int main(int argc, char** argv){
 		kmeans_count_matrix[i] = (double*) malloc(sizeof(double)*num_clusters);
 	}
 
-	//pthread_mutex_init(&mutex, NULL);
-	//pthread_mutex_init(mutex_array, NULL);
-	// for(j = 0; j < p; j++){
-	// 	pthread_mutex_init(&(mutex_array[j]), NULL);
-	// }
-
 	for(int i = 0; i < iterations; i++){ //number of iterations of kmeans
 		for(int j = 0; j < p; j++){ //compute kmeans distances
 			thread_data_list[j].thread_id = j;
@@ -94,9 +85,6 @@ int main(int argc, char** argv){
 			thread_data_list[j].kmeans_sum = kmeans_sum_matrix[j];
 			thread_data_list[j].kmeans_count = kmeans_count_matrix[j];
 			thread_data_list[j].a = a;
-			//thread_data_list[j].mutex_array = mutex_array;
-
-			//printf("iteration: %i and thread: %i\n", i, j);
 
 			check = pthread_create(&threads[j], &attr, sub_kmeans, (void *) &thread_data_list[j]);
 			if (check) { printf("ERROR; return code from pthread_create() is %d\n", check); exit(-1);}
@@ -120,21 +108,11 @@ int main(int argc, char** argv){
 		}
 
 		for(int k = 0; k < num_clusters; k++){ //recompute averages of clusters
-			//printf("Cluster: %i has a sum of %f and count of %f\n", k, kmeans_sum[k], kmeans_count[k]);
 			kmeans[k] = kmeans_sum[k]/kmeans_count[k];
 			kmeans_sum[k] = 0;
 			kmeans_count[k] = 0;
 		}
 	}
-
-
-
-	// for(int k = 0; k < num_clusters; k++){
-	// 	printf("%f\n", kmeans[k]);
-	// }
-
-
-	//
 	
 	// measure the end time here
 	if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		
@@ -191,7 +169,6 @@ void *sub_kmeans(void *thread_args){
 				a[iter] = 51*cluster_assignement;
 			}
 	}
-	//printf("%f\n", kmeans_sum[3]);
 
 	pthread_exit(NULL);
 

@@ -15,17 +15,6 @@ struct thread_dat{
 	double **C;
 };
 
-// double** mat_multiply(int row, int col, int block_size, int n, double **A, double **B, double **C){
-// 	int i,j,k;
-// 	for (i=row; i< row+block_size; i++){
-// 		for(j=col; j< col+block_size; j++){
-// 			for(k=0; k< n; k++){
-// 				C[i][j] += A[i][k]*B[k][j];
-// 			}
-// 		}
-// 	}
-// }
-
 void *sub_matrix_multiply(void *thread_args){
 	struct thread_dat * data = (struct thread_dat *) thread_args;
 	//printf("Created thread: %i", data->thread_id);
@@ -53,18 +42,14 @@ int main(int argc, char* argv[]){
 		int b = n/p;
 
 		long int num_threads = (n/b)*(n/b);
-
-		//pthread_t  threads[num_threads];
 		pthread_t *threads;
 		threads = malloc(sizeof(pthread_t)*num_threads);
 		int check;
 		pthread_attr_t attr;
 		pthread_attr_init(&attr);
-		// pthread_attr_setstacksize(&attr, 1024);
 		pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
 		struct thread_dat* thread_data_list = malloc(num_threads * sizeof(struct thread_dat));
-		//struct thread_dat thread_data_list[num_threads];
 
 		
 		double **A = (double**) malloc (sizeof(double*)*n);
@@ -85,8 +70,7 @@ int main(int argc, char* argv[]){
 		}
 				
 		if( clock_gettime(CLOCK_REALTIME, &start) == -1) { perror("clock gettime");}
-		
-		// Your code goes here //
+	
 		// Matrix C = Matrix A * Matrix B //	
 		//*******************************//
 		
@@ -100,7 +84,6 @@ int main(int argc, char* argv[]){
 				thread_data_list[i*(n/b)+j].A = A;
 				thread_data_list[i*(n/b)+j].B = B;
 				thread_data_list[i*(n/b)+j].C = C;
-				//mat_multiply(i*b, j*b, b, n, A, B, C);
 				check = pthread_create(&threads[i*(n/b)+j], &attr, sub_matrix_multiply, (void *) &thread_data_list[i*(n/b)+j]);
 				if (check) { printf("ERROR; return code from pthread_create() is %d\n", check); exit(-1);}
 			}
@@ -115,16 +98,6 @@ int main(int argc, char* argv[]){
 				}
 			}
 		}
-
-
-		// for(i=0; i<n; i ++){
-		// 	for(j=0; j<n; j++){
-		// 		for(k = 0; k<n; k++){
-		// 			C[i][j] += A[i][k]*B[k][j];
-		// 		}
-		// 	}
-		// }
-		//*******************************//
 
 		
 		if( clock_gettime( CLOCK_REALTIME, &stop) == -1 ) { perror("clock gettime");}		
