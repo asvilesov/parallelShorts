@@ -26,10 +26,6 @@ int main(){
 	cudaEventCreate(&start);
 	cudaEventCreate(&stop);
 
-	// matrix size is n*n
-	//int b = 128; //block size
-	//int b = atoi(argv[1]);
-
 	
 	int *A = (int*) malloc (sizeof(int)*n*n);
 	int *B = (int*) malloc (sizeof(int)*n*n);
@@ -65,7 +61,6 @@ int main(){
 	cudaMemcpy(C, gpu_c, sizeof(int)*n*n, cudaMemcpyDeviceToHost);
 
 	printf("C[451][451] = %i\n", C[451*1024+451]);
-	//printf("Total Time: %f\n", time_execute);
 
 	free(A);
 	free(B);

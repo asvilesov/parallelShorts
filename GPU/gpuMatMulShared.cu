@@ -40,10 +40,6 @@ int main(){
 	cudaEventCreate(&start);
 	cudaEventCreate(&stop);
 
-	// matrix size is n*n
-	//int b = 128; //block size
-	//int b = atoi(argv[1]);
-
 	
 	int *A = (int*) malloc (sizeof(int)*n*n);
 	int *B = (int*) malloc (sizeof(int)*n*n);
